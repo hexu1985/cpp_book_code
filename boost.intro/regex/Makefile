@@ -3,7 +3,7 @@ RM = rm -f
 CXX = g++
 CXXFLAGS = -Wall -g
 INCLUDES = 
-LDFLAGS = -lboost_regex-mt
+LDFLAGS = -lboost_regex#-mt
 LDPATH =
 
 SOURCES = $(shell ls *.cpp)
