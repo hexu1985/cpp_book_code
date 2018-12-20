@@ -18,8 +18,7 @@ int	echo(SOCKET);
  * main - Concurrent TCP server for ECHO service
  *------------------------------------------------------------------------
  */
-void
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	char	*service = "echo";	/* service name or port number	*/
 	struct	sockaddr_in fsin;	/* the from address of a client	*/

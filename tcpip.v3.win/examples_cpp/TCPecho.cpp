@@ -16,8 +16,7 @@ SOCKET	connectTCP(const char *, const char *);
  * main - TCP client for ECHO service
  *------------------------------------------------------------------------
  */
-void
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	char	*host = "localhost";	/* host to use if none supplied	*/
 	char	*service = "echo";	/* default service name		*/

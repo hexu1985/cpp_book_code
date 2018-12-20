@@ -33,8 +33,7 @@ long	mstime(u_long *);
  * main - concurrent TCP client for ECHO service timing
  *------------------------------------------------------------------------
  */
-void
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	int		ccount = CCOUNT;
 	int		i, hcount, fd;

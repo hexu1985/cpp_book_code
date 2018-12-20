@@ -18,8 +18,7 @@ SOCKET	passiveUDP(const char *);
  * main - Iterative server for DAYTIME service
  *------------------------------------------------------------------------
  */
-void
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	char	*service = "daytime";	/* service name or port number	*/
 	char	buf[LINELEN+1];		/* buffer for one line of text	*/

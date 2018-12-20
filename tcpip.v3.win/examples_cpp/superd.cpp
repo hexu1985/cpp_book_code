@@ -40,8 +40,7 @@ extern	u_short	portbase;	/* from passivesock()	*/
  * main - Super-server main program
  *------------------------------------------------------------------------
  */
-void
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	struct service	*psv;		/* service table pointer	*/
 	fd_set		afds, rfds;	/* readable file descriptors	*/

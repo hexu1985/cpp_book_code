@@ -16,8 +16,7 @@ SOCKET	connectUDP(const char *, const char *);
  * main - UDP client for ECHO service
  *------------------------------------------------------------------------
  */
-void
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	char	*host = "localhost";
 	char	*service = "echo";

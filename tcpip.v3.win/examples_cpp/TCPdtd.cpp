@@ -15,8 +15,7 @@ SOCKET	passiveTCP(const char *, int);
  * main - Iterative TCP server for DAYTIME service
  *------------------------------------------------------------------------
  */
-void
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	struct	sockaddr_in fsin;	/* the from address of a client	*/
 	char	*service = "daytime";	/* service name or port number	*/
