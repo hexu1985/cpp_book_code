@@ -38,7 +38,7 @@ namespace Graph_lib {
         virtual void move(int dx,int dy) { hide(); pw->position(loc.x+=dx, loc.y+=dy); show(); }
         virtual void hide() { pw->hide(); }
         virtual void show() { pw->show(); }
-        virtual void attach(Window&) = 0;
+        virtual void attach(Window_&) = 0;
 
         Point loc;
         int width;
@@ -49,7 +49,7 @@ namespace Graph_lib {
         virtual ~Widget() { }
 
     protected:
-        Window* own;    // every Widget belongs to a Window
+        Window_* own;    // every Widget belongs to a Window_
         Fl_Widget* pw;  // connection to the FLTK Widget
     private:
         Widget& operator=(const Widget&); // don't copy Widgets
@@ -63,7 +63,7 @@ namespace Graph_lib {
             : Widget(xy,w,h,label,cb)
         {}
 
-        void attach(Window&);
+        void attach(Window_&);
     };
 
 //------------------------------------------------------------------------------
@@ -74,7 +74,7 @@ namespace Graph_lib {
         int get_int();
         string get_string();
 
-        void attach(Window& win);
+        void attach(Window_& win);
     };
 
 //------------------------------------------------------------------------------
@@ -85,7 +85,7 @@ namespace Graph_lib {
         void put(int);
         void put(const string&);
 
-        void attach(Window& win);
+        void attach(Window_& win);
     };
 
 //------------------------------------------------------------------------------
@@ -118,7 +118,7 @@ namespace Graph_lib {
                 selection[i].move(dx,dy);
         }
 
-        void attach(Window& win)    // attach all buttons
+        void attach(Window_& win)    // attach all buttons
         {
             for (int i=0; i<selection.size(); ++i) win.attach(selection[i]);
             own = &win;

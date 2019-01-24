@@ -189,15 +189,15 @@ struct Line : Shape {            // a Line is a Shape defined by two Points
 
 //------------------------------------------------------------------------------
 
-struct Rectangle : Shape {
+struct Rectangle_ : Shape {
 
-    Rectangle(Point xy, int ww, int hh) : w(ww), h(hh)
+    Rectangle_(Point xy, int ww, int hh) : w(ww), h(hh)
     {
         add(xy);
         if (h<=0 || w<=0) error("Bad rectangle: non-positive side");
     }
 
-    Rectangle(Point x, Point y) : w(y.x-x.x), h(y.y-x.y)
+    Rectangle_(Point x, Point y) : w(y.x-x.x), h(y.y-x.y)
     {
         add(x);
         if (h<=0 || w<=0) error("Bad rectangle: non-positive width or height");
@@ -226,7 +226,7 @@ struct Closed_polyline : Open_polyline { // closed sequence of lines
 
 //------------------------------------------------------------------------------
 
-struct Polygon : Closed_polyline {    // closed sequence of non-intersecting lines
+struct Polygon_ : Closed_polyline {    // closed sequence of non-intersecting lines
     void add(Point p);
     void draw_lines() const;
 };
@@ -291,8 +291,8 @@ private:
 
 //------------------------------------------------------------------------------
 
-struct Ellipse : Shape {
-    Ellipse(Point p, int w, int h)    // center, min, and max distance from center
+struct Ellipse_ : Shape {
+    Ellipse_(Point p, int w, int h)    // center, min, and max distance from center
         : w(w), h(h)
     { 
         add(Point(p.x-w,p.y-h));

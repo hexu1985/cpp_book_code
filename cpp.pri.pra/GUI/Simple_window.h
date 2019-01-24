@@ -7,14 +7,14 @@
 #ifndef SIMPLE_WINDOW_GUARD
 #define SIMPLE_WINDOW_GUARD 1
 
-#include "GUI.h"    // for Simple_window only (doesn't really belong in Window.h)
+#include "GUI.h"    // for Simple_window only (doesn't really belong in Window_.h)
 #include "Graph.h"
 
 using namespace Graph_lib;
 
 //------------------------------------------------------------------------------
 
-struct Simple_window : Window {
+struct Simple_window : Window_ {
     Simple_window(Point xy, int w, int h, const string& title );
 
     bool wait_for_button(); // simple event loop
