@@ -1,85 +1,54 @@
-#
-# Internetworking with TCP/IP, Volume III example code Makefile
-#
-#	David L Stevens, Internetworking Research Group at Purdue
-#	Tue Sep 17 19:40:42 EST 1991
-#
+RM = rm -f
+CXX = g++
+INCLUDE = -I../common
+CXXFLAGS = -Wall -g -O2 -D_BSD_SOURCE ${INCLUDE}
+LIBS = 
+VPATH = ../common
 
-INCLUDE =
+PROGS =	TCPecho TCPdaytime TCPtecho UDPecho UDPtime \
+		TCPdaytimed TCPechod TCPmechod UDPtimed daytimed \
+		superd TCPmtechod
 
-CLNTS = TCPecho TCPdaytime TCPtecho UDPecho UDPtime
-SERVS = TCPdaytimed TCPechod TCPmechod UDPtimed daytimed
-OTHER = superd TCPmtechod
+all:	${PROGS}
 
-DEFS = -D_BSD_SOURCE
-CFLAGS = -W -pedantic -ansi -g ${DEFS} ${INCLUDE}
+TCPecho: TCPecho.o connectTCP.o connectsock.o errexit.o
+		${CXX} ${CXXFLAGS} -o $@ $^ ${LIBS}
 
-HDR =
-CSRC = TCPecho.cpp TCPdaytime.cpp TCPtecho.cpp UDPecho.cpp UDPtime.cpp
-CXSRC = connectTCP.cpp connectUDP.cpp connectsock.cpp errexit.cpp
+TCPdaytime: TCPdaytime.o connectTCP.o connectsock.o errexit.o
+		${CXX} ${CXXFLAGS} -o $@ $^ ${LIBS}
 
-SSRC = TCPdaytimed.cpp TCPechod.cpp TCPmechod.cpp TCPmtechod.cpp UDPtimed.cpp \
-	daytimed.cpp superd.cpp
-SXSRC = passiveTCP.cpp passiveUDP.cpp passivesock.cpp sv_funcs.cpp
+TCPtecho: TCPtecho.o connectTCP.o connectsock.o errexit.o
+		${CXX} ${CXXFLAGS} -o $@ $^ ${LIBS}
 
-CXOBJ = connectTCP.o connectUDP.o connectsock.o errexit.o
-SXOBJ = passiveTCP.o passiveUDP.o passivesock.o errexit.o
+UDPecho: UDPecho.o connectUDP.o connectsock.o errexit.o
+		${CXX} ${CXXFLAGS} -o $@ $^ ${LIBS}
 
-PROGS = ${CLNTS} ${SERVS} ${OTHER}
+UDPtime: UDPtime.o connectUDP.o connectsock.o errexit.o
+		${CXX} ${CXXFLAGS} -o $@ $^ ${LIBS}
 
-all: ${PROGS}
+TCPdaytimed: TCPdaytimed.o passiveTCP.o passivesock.o errexit.o
+		${CXX} ${CXXFLAGS} -o $@ $^ ${LIBS}
 
-${CLNTS}: ${CXOBJ}
-	${CC} -o $@ ${CFLAGS} $@.o ${CXOBJ}
+TCPechod: TCPechod.o passiveTCP.o passivesock.o errexit.o
+		${CXX} ${CXXFLAGS} -o $@ $^ ${LIBS}
 
-${SERVS}: ${SXOBJ}
-	${CC} -o $@ ${CFLAGS} $@.o ${SXOBJ}
+TCPmechod: TCPmechod.o passiveTCP.o passivesock.o errexit.o
+		${CXX} ${CXXFLAGS} -o $@ $^ ${LIBS}
 
-superd: ${SXOBJ} superd.o sv_funcs.o
-	${CC} -o $@ ${CFLAGS} $@.o ${SXOBJ} sv_funcs.o
+UDPtimed: UDPtimed.o passiveUDP.o passivesock.o errexit.o
+		${CXX} ${CXXFLAGS} -o $@ $^ ${LIBS}
 
-TCPmtechod: TCPmtechod.o ${SXOBJ}
-	${CC} -o $@ ${CFLAGS} $@.o ${SXOBJ} -lpthread
+daytimed: daytimed.o passiveTCP.o passiveUDP.o passivesock.o errexit.o
+		${CXX} ${CXXFLAGS} -o $@ $^ ${LIBS}
 
-clients: ${CLNTS}
-servers: ${SERVS}
+superd: superd.o sv_funcs.o passiveTCP.o passiveUDP.o passivesock.o errexit.o
+		${CXX} ${CXXFLAGS} -o $@ $^ ${LIBS}
 
-clean: FRC
-	rm -f Makefile.bak a.out core errs lint.errs ${PROGS} *.o
+TCPmtechod: TCPmtechod.o passiveTCP.o passivesock.o errexit.o
+		${CXX} ${CXXFLAGS} -o $@ $^ ${LIBS} -lpthread
 
-depend: ${HDR} ${CSRC} ${SSRC} ${TNSRC} FRC
-	maketd -a ${DEFS} ${INCLUDE} ${CSRC} ${SSRC} ${TNSRC}
+clean:
+		rm -f ${PROGS} ${CLEANFILES} *.o
 
-install: all FRC
-	@echo "Your installation instructions here."
-
-lint: ${HDR} ${XSRC} ${CSRC} ${SSRC} FRC
-	lint ${DEFS} ${INCLUDE} ${CSRC} ${SSRC} ${CXSRC} ${SXSRC}
-
-print: Makefile ${SRC} FRC
-	lpr Makefile ${CSRC} ${SSRC} ${CXSRC} ${SXSRC}
-
-spotless: clean FRC
-	rcsclean Makefile ${HDR} ${SRC}
-
-tags: ${CSRC} ${SSRC} ${CXSRC} ${SXSRC}
-	ctags ${CSRC} ${SSRC} ${CXSRC} ${SXSRC}
-
-${HDR} ${CSRC} ${CXSRC} ${SSRC} ${SXSRC}:
-	co $@
-
-TCPecho: TCPecho.o
-TCPdaytime: TCPdaytime.o
-TCPtecho: TCPtecho.o
-UDPecho: UDPecho.o
-UDPtime: UDPtime.o
-TCPdaytimed: TCPdaytimed.o
-TCPechod: TCPechod.o
-TCPmechod: TCPmechod.o
-UDPtimed: UDPtimed.o
-daytimed: daytimed.o
-superd: superd.o
-
-FRC:
-	
-# DO NOT DELETE THIS LINE - maketd DEPENDS ON IT
+distclean:
+		rm -f ${PROGS} ${CLEANFILES} *.o
