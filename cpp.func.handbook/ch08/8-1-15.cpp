@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <vector>
+#include <functional>
+#include <algorithm>
+#include <iostream>
+
+using namespace std;
+
+//构造一个struct
+struct Myclass
+{
+	char fn0()
+	{
+		return ('x');//无参数函数
+	}
+
+	char fn1(char ch)
+	{
+		return (ch+1);//一元函数
+	}
+} mycl;
+
+int main()
+{
+ //初始化
+	char buf[]="wxyz";
+	char dest[]="abcd";
+	char *first=buf,*last=buf+4;
+    char *mid=first+2;
+
+ //使用mem_fun1_ref_t调用mycl中的函数
+	mem_fun1_ref_t<char,Myclass,char> mf1r(Myclass::fn1);
+
+	printf("%c\n",mf1r(mycl,'\3'));//显示结果
+	printf("%c\n",mem_fun1_ref(Myclass::fn1)(mycl,'\3'));//显示结果
+
+	return 1;
+}
