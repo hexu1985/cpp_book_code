@@ -21,10 +21,12 @@ implied warranty.
 #ifndef BUFFER_X_DEVICE_H
 #define BUFFER_X_DEVICE_H
 
+#include <unistd.h>
+
 // p. 235 {{{
 int buffer_to_device (const char * c, int n)
 {
-    if (_write(1,c,n) != n)
+    if (write(1,c,n) != n)
         return -1;
     else
         return 0;
@@ -32,7 +34,7 @@ int buffer_to_device (const char * c, int n)
 
 int buffer_from_device(char * c, int n)
 {
-    return _read(0, c, n);
+    return read(0, c, n);
 }
 // }}}
 

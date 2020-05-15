@@ -21,6 +21,8 @@ implied warranty.
 #ifndef OUTBUF_H
 #define OUTBUF_H
 
+#include <string.h>
+
 // p. 236 {{{
 template <class charT, class Traits>
 class outbuf : public basic_streambuf<charT, Traits>

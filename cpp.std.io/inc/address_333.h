@@ -21,6 +21,7 @@ implied warranty.
 #ifndef ADDRESS_H
 #define ADDRESS_H
 
+#include <typeinfo>
 #include "address_put_336.h"
 
 // p. 333 {{{
@@ -41,7 +42,7 @@ class address
 					ad.address1_, ad.address2_, ad.town_, ad.zipcode_,
 					ad.state_, ad.country_, ad.cntrycode_);
 			}
-			catch(bad_cast&)
+			catch(std::bad_cast&)
 			{
 				// locale does not contain a address_put facet;
 			}

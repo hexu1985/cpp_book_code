@@ -21,6 +21,7 @@ implied warranty.
 #ifndef INBUF_H
 #define INBUF_H
 
+#include <string.h>
 #include <algorithm>
 
 // p. 239 {{{
@@ -39,8 +40,8 @@ class inbuf : public basic_streambuf<charT, Traits>
         int_type pbackfail(int_type c);
 
     private:
-        static const streamsize bufSize;
-        static const streamsize pbSize;
+        static const streamsize bufSize = 16;
+        static const streamsize pbSize = 4;
         char_type buffer[bufSize];
 // }}}
 // p. 240 {{{
@@ -52,10 +53,10 @@ class inbuf : public basic_streambuf<charT, Traits>
 };
 
 template <class charT, class Traits>
-const streamsize inbuf<charT, Traits>::bufSize = 16;
+const streamsize inbuf<charT, Traits>::bufSize;
 
 template <class charT, class Traits>
-const streamsize inbuf<charT, Traits>::pbSize = 4;
+const streamsize inbuf<charT, Traits>::pbSize;
 
 template <class charT, class traits> 
 inbuf<charT,traits>::inbuf() 

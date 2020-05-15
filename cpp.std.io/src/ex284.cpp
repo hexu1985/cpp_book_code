@@ -15,11 +15,11 @@ implied warranty.
 */
 
 #include <locale>
-#include <io.h>
 #include <cassert>
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <iostream>
+#include <unistd.h>
 
 
 using namespace ::std;
@@ -28,10 +28,10 @@ using namespace ::std;
 void CreateDataFile()
 {
 	char text[] = "abcdefghij";
-	int fd = _open("ex284.dat", _O_WRONLY | _O_CREAT, _S_IWRITE );
+	int fd = open("ex284.dat", O_WRONLY | O_CREAT, S_IWRITE );
 	assert(fd >= 0);
-	_write(fd,text,sizeof(text));
-	_close(fd);
+	write(fd,text,sizeof(text));
+	close(fd);
 }
 
 typedef mbstate_t ConversionState; // We use the default type
@@ -49,14 +49,14 @@ int main()
 {
 	CreateDataFile();
 
-	const int fd = _open("ex284.dat", _O_RDONLY);
+	const int fd = open("ex284.dat", O_RDONLY);
 	assert(fd >= 0);
 
 	// Ensure file will be closed later when exiting
 	struct CloseFd {
 		CloseFd(const int& fd) : mfd(fd) {};
 		~CloseFd() {
-			_close(mfd);
+			close(mfd);
 		}
 		const int& mfd;
 	} CloseFd(fd);
@@ -85,7 +85,7 @@ int main()
 		int readResult;
 		codecvt_base::result convResult;
 
-		if ((readResult = _read (fd, readStart, readSize)) <= 0) // !!! _read used instead read
+		if ((readResult = read (fd, readStart, readSize)) <= 0) // !!! read used instead read
 		{ 
 			if (readResult == 0) 
 				err = NoMoreInput; 

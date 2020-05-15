@@ -21,10 +21,12 @@ implied warranty.
 #ifndef CHAR_X_DEVICE_H
 #define CHAR_X_DEVICE_H
 
+#include <unistd.h>
+
 // p. 229 {{{
 int char_to_device(char c)
 {
-    if ( _write(1, &c, 1) != 1 )
+    if ( write(1, &c, 1) != 1 )
         return -1;
 // }}}
 // p. 230 {{{
@@ -34,7 +36,7 @@ int char_to_device(char c)
 
 int char_from_device(char * c)
 {
-    if (_read(0, c, 1) != 1)
+    if ( read(0, c, 1) != 1)
         return -1;
     else
         return 0;
