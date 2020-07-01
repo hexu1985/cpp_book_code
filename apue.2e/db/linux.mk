@@ -1,5 +1,5 @@
 include ../Make.defines.linux
-CFLAGS=-DLINUX -ansi -I$(WKDIR)/include -Wall
+CFLAGS=-DLINUX -ansi -I../include -Wall
 
 #
 # Makefile for misc library.
