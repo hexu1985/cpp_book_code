@@ -11,7 +11,8 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
-#include <cctype>
+#include <ctype.h>
+#include <functional>
 using namespace std;
 
 int main()
@@ -23,13 +24,13 @@ int main()
     // lowercase all characters
     transform (s.begin(), s.end(),    // source
                s.begin(),             // destination
-               tolower);              // operation
+               ptr_fun<int, int>(tolower));              // operation
     cout << "lowered:  " << s << endl;
 
     // uppercase all characters
     transform (s.begin(), s.end(),    // source
                s.begin(),             // destination
-               toupper);              // operation
+               ptr_fun<int, int>(toupper));            // operation
     cout << "uppered:  " << s << endl;
 }
 
