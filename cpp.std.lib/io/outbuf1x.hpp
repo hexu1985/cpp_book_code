@@ -23,7 +23,7 @@ class basic_outbuf : public std::basic_streambuf<charT,traits>
             overflow (typename traits::int_type c) {
         if (!traits::eq_int_type(c,traits::eof())) {
             // convert lowercase to uppercase
-            c = std::toupper(c,getloc());
+            c = std::toupper(c,this->getloc());
 
             // and write the character to the standard output
             if (putchar(c) == EOF) {
