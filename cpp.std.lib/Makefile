@@ -1,16 +1,22 @@
-include Makefile.h
+SUBDIRS = algo cont fo i18n io iter memory num stl string util
 
-all::
+.PHONY: all everything debug clean
 
-CODE_DIRS = util stl cont iter fo algo string num io i18n memory
-all::
-	@for DIR in $(CODE_DIRS); \
-        do \
-            (cd $$DIR; make all) \
-        done
-clean::
-	@for DIR in $(CODE_DIRS); \
-        do \
-            (cd $$DIR; make clean) \
-        done
+all: everything
+
+everything:
+	@for dir in $(SUBDIRS); do \
+		$(MAKE) $(T) --directory=$$dir || exit 1; \
+	done
+
+debug: T := debug
+debug: all
+
+profile: T := profile
+profile: all
+
+clean:	T := clean
+clean: everything
+
+
 

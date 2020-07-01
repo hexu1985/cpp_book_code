@@ -1,17 +1,19 @@
-OUTPROGS = itercat advance1 distance swap1 \
-		reviter1 reviter2 reviter3 reviter4 \
-		backins frontins inserter \
-		ostriter \
-		assoiter
 
-CPPPROGS = 	istriter advance2 
+RM = rm -f
+CXX = g++
+CXXFLAGS = -Wall -g
+INCLUDES = 
+LDFLAGS =
+LDPATH =
 
-HEADERS =	distance.hpp assoiter.hpp print.hpp
+SOURCES = $(shell ls *.cpp)
+PROGS = $(subst .cpp,,$(SOURCES))
 
-EXPORT =	istriter.in advance2.in
+all: $(PROGS)
+	@echo "PROGS = $(PROGS)" 
 
-include ../Makefile.h
+clean:
+	$(RM) $(PROGS)
 
-assoiter: assoiter.hpp assoiter.cpp
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) $@.cpp -o $@
-
+%: %.cpp
+	$(CXX) -o $@ $(CXXFLAGS) $(INCLUDES) $^ $(LDFLAGS) $(LDPATH)

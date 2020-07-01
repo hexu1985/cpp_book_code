@@ -1,10 +1,19 @@
-include ../Makefile.h
 
-OUTPROGS = myalloc1
+RM = rm -f
+CXX = g++
+CXXFLAGS = -Wall -g
+INCLUDES = 
+LDFLAGS =
+LDPATH =
 
-HEADERS = myalloc.hpp
+SOURCES = $(shell ls *.cpp)
+PROGS = $(subst .cpp,,$(SOURCES))
 
+all: $(PROGS)
+	@echo "PROGS = $(PROGS)" 
 
-uninit.o: uninit_fill.cpp uninit_fill_n.cpp uninit_copy.cpp \
-		allocvoid.cpp defalloc.cpp
+clean:
+	$(RM) $(PROGS)
 
+%: %.cpp
+	$(CXX) -o $@ $(CXXFLAGS) $(INCLUDES) $^ $(LDFLAGS) $(LDPATH)

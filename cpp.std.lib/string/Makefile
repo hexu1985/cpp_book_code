@@ -1,8 +1,19 @@
-CPPPROGS =	iter2 unique
 
-OUTPROGS =	string1 string2 iter1 iter3 icstring1
+RM = rm -f
+CXX = g++
+CXXFLAGS = -Wall -g
+INCLUDES = 
+LDFLAGS =
+LDPATH =
 
-HEADERS =	icstring.hpp
+SOURCES = $(shell ls *.cpp)
+PROGS = $(subst .cpp,,$(SOURCES))
 
-include ../Makefile.h
+all: $(PROGS)
+	@echo "PROGS = $(PROGS)" 
 
+clean:
+	$(RM) $(PROGS)
+
+%: %.cpp
+	$(CXX) -o $@ $(CXXFLAGS) $(INCLUDES) $^ $(LDFLAGS) $(LDPATH)

@@ -1,11 +1,19 @@
-include ../Makefile.h
 
-CPPPROGS = \
-        complex2
+RM = rm -f
+CXX = g++
+CXXFLAGS = -Wall -g
+INCLUDES = 
+LDFLAGS =
+LDPATH =
 
-OUTPROGS = \
-        complex1 \
-        val1 val2 slice1 gslice1 masked1 indi1
+SOURCES = $(shell ls *.cpp)
+PROGS = $(subst .cpp,,$(SOURCES))
 
-OTHERS = complextests valtests
+all: $(PROGS)
+	@echo "PROGS = $(PROGS)" 
 
+clean:
+	$(RM) $(PROGS)
+
+%: %.cpp
+	$(CXX) -o $@ $(CXXFLAGS) $(INCLUDES) $^ $(LDFLAGS) $(LDPATH)
