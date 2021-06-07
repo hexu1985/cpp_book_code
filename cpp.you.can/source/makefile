@@ -139,9 +139,9 @@ playpen.h
 	$(compile_source)
 
 ifeq ($(OS), Windows_NT)
-	PLAYEN_CPP = playpen.cpp
+	PLAYEN_CPP=playpen.cpp
 else
-	PLAYEN_CPP = playpen_unix1.cpp
+	PLAYEN_CPP=playpen_unix1.cpp
 endif
 
 $(OBJ_DIR)/playpen.o: $(PLAYEN_CPP)	\
